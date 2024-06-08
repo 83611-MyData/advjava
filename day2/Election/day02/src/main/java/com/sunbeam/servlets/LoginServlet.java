@@ -34,11 +34,16 @@ public class LoginServlet extends HttpServlet{
 			
  			User user = userdao.findByEmail(email);
  			if(user != null && user.getPassword().equals(pwd)) {
- 				// login successful
- 				System.out.println("Login Successful: " + user);
- 			}
+ 			
+ 				if(user.getRole().equals("voter")) {
+ 					resp.sendRedirect("candlist");
+ 		 				}
+ 				else {
+ 					resp.sendRedirect("result");
+ 				}
+ 				}
  			else {
- 				// login failed
+ 			
  				resp.setContentType("text/html");
  				PrintWriter out = resp.getWriter();
  				out.println("<html>");
